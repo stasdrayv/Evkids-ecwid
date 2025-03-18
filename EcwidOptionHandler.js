@@ -1,6 +1,6 @@
 
 window.addEventListener('load', () => {
-    const storeId = 110895030, token = 'public_sMSDJvCU9UdyxPJz1sjgm6Lnsdnf72yq';
+    const storeId = 110895030, token = 'public_2u429uXam4Anwdh25QkNhwwrnTP8TyBQ';
     Ecwid.OnAPILoaded.add(() => Ecwid.OnPageLoaded.add(page => page.type === 'PRODUCT' && fetchProductData(page.productId)));
     
     const fetchProductData = id => {
