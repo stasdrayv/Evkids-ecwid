@@ -1,15 +1,23 @@
-<script src="https://djqizrxa6f10j.cloudfront.net/ecwid-sdk/js/1.3.4/ecwid-app.js"></script>
-<script>
 window.addEventListener('load', () => {
     const storeId = 110895030, token = 'public_2EcX2hkWS7BudZaMDscNmnqqE55FE3e1';
-    Ecwid.OnAPILoaded.add(() => Ecwid.OnPageLoaded.add(page => page.type === 'PRODUCT' && fetchProductData(page.productId)));
-    
+
+    EcwidApp.init({
+        app_id: "custom-app",
+        autoloadedflag: true
+    });
+
+    Ecwid.OnPageLoaded.add(page => {
+        if (page.type === 'PRODUCT') {
+            fetchProductData(page.productId);
+        }
+    });
+
     const fetchProductData = id => {
         fetch(`https://app.ecwid.com/api/v3/${storeId}/products/${id}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         })
         .then(res => res.json())
-        .then(product => setupOptions(product.options.map(opt => opt.name), product.combinations || []))
+        .then(product => setupOptions(product.options?.map(opt => opt.name) || [], product.combinations || []))
         .catch(console.error);
     };
 
@@ -43,8 +51,7 @@ window.addEventListener('load', () => {
     };
 
     const getOptionElements = name => [...document.querySelectorAll(
-        `.details-product-option--${name.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')} .form-control, 
-         .details-product-option--${name.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')} .form-control__select`
+        `.details-product-option--${CSS.escape(name)} .form-control, 
+         .details-product-option--${CSS.escape(name)} .form-control__select`
     )];
 });
-</script>
