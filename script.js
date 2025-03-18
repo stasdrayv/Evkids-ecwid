@@ -1,6 +1,7 @@
-
+<script src="https://djqizrxa6f10j.cloudfront.net/ecwid-sdk/js/1.3.4/ecwid-app.js"></script>
+<script>
 window.addEventListener('load', () => {
-    const storeId = 110895030, token = 'public_sMSDJvCU9UdyxPJz1sjgm6Lnsdnf72yq';
+    const storeId = 110895030, token = 'public_2EcX2hkWS7BudZaMDscNmnqqE55FE3e1';
     Ecwid.OnAPILoaded.add(() => Ecwid.OnPageLoaded.add(page => page.type === 'PRODUCT' && fetchProductData(page.productId)));
     
     const fetchProductData = id => {
@@ -42,7 +43,8 @@ window.addEventListener('load', () => {
     };
 
     const getOptionElements = name => [...document.querySelectorAll(
-        `.details-product-option--${name.replace(/[!"#$%&'()*+,./:;<=>?@[\\]^`{|}~]/g, '\$&')} .form-control, 
-         .details-product-option--${name.replace(/[!"#$%&'()*+,./:;<=>?@[\\]^`{|}~]/g, '\$&')} .form-control__select`
+        `.details-product-option--${name.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')} .form-control, 
+         .details-product-option--${name.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, '\\$&')} .form-control__select`
     )];
 });
+</script>
